@@ -1,0 +1,23 @@
+{"skills":[
+    {
+        "skill":"Java",
+        "category":50,
+        "status":"In Progress"
+    },
+    {
+        "skill":"Python",
+        "category":20,
+        "status":"Completed"
+    },
+    {
+        "skill":"React",
+        "category":20,
+        "status":"Yet To Start"
+    },
+    {
+        "skill":"Appzillon",
+        "category":10,
+        "status":"In Progress"
+    }
+]
+}

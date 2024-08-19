@@ -1,0 +1,21 @@
+onClickAddSkill=()=>{
+    apz.server.callServer({
+        appId:"skills",
+        ifaceName:"AddSkill",
+        buildReq:"N",
+        req:{
+            employee_id:apz.skills.utility.id,
+            skills:[{
+                skill:apz.getElmValue("skills__AddSkill__el_inp_3"),
+                category:apz.getElmValue("skills__AddSkill__el_inp_4"),
+                proficiency:apz.getElmValue("skills__AddSkill__el_inp_5"),
+                experience:apz.getElmValue("skills__AddSkill__el_inp_2"),
+                certification:apz.getElmValue("skills__AddSkill__el_inp_1")
+            }]
+        },
+        callBack:addedSkill
+    });
+}
+addedSkill=(res)=>{
+    console.log(res);
+}

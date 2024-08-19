@@ -1,0 +1,36 @@
+apz.app.onLoad_RecognitionCenter = () => {
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "GetAppreciations",
+        buildReq: "N",
+        painResp: "Y",
+        callBack: newAppreciation
+    });
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "GetAppreciationByEmployee",
+        buildReq: "N",
+        painResp: "Y",
+        req: {
+            employee_id: apz.skills.utility.id
+        }
+    });
+}
+newAppreciation = (res) => {
+    console.log(res);
+}
+onClickAppreciate = () => {
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "AppreciateSomeone",
+        buildReq: "N",
+        req: {
+            ReceiverName:apz.getElmValue("skills__RecognitionCenter__ReceiverName"),
+            ReceiverID:apz.getElmValue("skills__RecognitionCenter__id"),
+            SenderName:apz.skills.utility.name,
+            SenderID:apz.skills.utility.id,
+            Comment: apz.getElmValue("skills__RecognitionCenter__Comment")
+        },
+        callBack: addedSkill
+    });
+}

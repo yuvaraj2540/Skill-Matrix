@@ -1,0 +1,15 @@
+apz.app.onLoad_DashBoard=()=>{
+    chartDisplay();
+}
+
+chartDisplay=()=>{
+    apz.server.callServer({
+        appId:"skills",
+        ifaceName:"AllSkills",
+        paintResp:"Y",
+        callBack:chartCB
+    })
+}
+chartCB=(res)=>{
+    console.log(res.res.skills__AllSkills_Res);
+}

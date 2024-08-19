@@ -1,0 +1,61 @@
+apz.app.onLoad_SkillStats = () => {
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "GetSkill",
+        buildReq: "N",
+        painResp: "Y",
+        callBack: mySkills
+    });
+}
+mySkills = (res) => {
+    console.log(res);
+}
+showEditModal = (ele) => {
+    let presentData = apz.data.scrdata.skills__GetSkill_Res[ele.getAttribute('rowno')]
+    apz. toggleModal ({"targetId" : "skills__SkillStats__edit"});
+    apz.setElmValue("skills__SkillStats__el_inp_2", presentData.skill);
+    apz.setElmValue("skills__SkillStats__el_inp_4", presentData.category);
+    apz.setElmValue("skills__SkillStats__el_inp_3", presentData.experience);
+    apz.setElmValue("skills__SkillStats__el_inp_1", presentData.certification);
+}
+onClickEditSkill = () => {
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "EditSkills",
+        buildReq: "N",
+        req: {
+            employee_id: apz.skills.utility.id,
+            skill: apz.getElmValue("skills__SkillStats__el_inp_2"),
+            proficiency: apz.getElmValue("skills__SkillStats__el_dpd_1"),
+            experience: apz.getElmValue("skills__SkillStats__el_inp_3"),
+            certification: apz.getElmValue("skills__SkillStats__el_inp_1")
+        },
+        callBack: editedSkill
+    });
+}
+editedSkill = (res) => {
+    console.log(res);
+    apz. toggleModal ({"targetId" : "skills__SkillStats__edit"});
+    apz.setElmValue("skills__SkillStats__el_inp_2", "");
+    apz.setElmValue("skills__SkillStats__el_inp_4", "");
+    apz.setElmValue("skills__SkillStats__el_inp_3", "");
+    apz.setElmValue("skills__SkillStats__el_inp_1", "");
+    apz.setElmValue("skills__SkillStats__el_dpd_1", "");
+    apz.app.onLoad_SkillStats();
+}
+onClickDeleteSkill = (ele) => {
+    let deleteData = apz.data.scrdata.skills__GetSkill_Res[ele.getAttribute('rowno')]
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "DeleteSkill",
+        buildReq: "N",
+        req: {
+            employee_id:apz.skills.utility.id,
+            skill:deleteData.skill
+        },
+        callBack:deleted
+    });
+}
+deleted=(res)=>{
+    console.log(res);
+}

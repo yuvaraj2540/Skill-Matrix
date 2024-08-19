@@ -1,0 +1,48 @@
+apz.skills = {};
+apz.skills.utility = {};
+const onClickLogin = (ele) => {
+    apz.server.callServer({
+        appId: "skills",
+        ifaceName: "Login",
+        buildReq: "N",
+        req: {
+            username: apz.getElmValue("skills__FirstPage__username"),
+            password: apz.getElmValue("skills__FirstPage__password")
+        },
+        callBack: LoginCB
+    });
+}
+LoginCB = (res) => {
+    console.log(res.res.skills__Login_Res.employee_id);
+    apz.skills.utility.id = res.res.skills__Login_Res.employee_id;
+    apz.skills.utility.name = res.res.skills__Login_Res.first_name;
+    if (res.errors) {
+        apz.dispMsg({
+            code: "APZ-CNT-301"
+        });
+    } else {
+        apz.launchScreen({
+            scr: "DashBoard"
+        });
+    }
+}
+const addSkillPage = () => {
+    apz.launchScreen({
+        scr: "AddSkill"
+    });
+}
+const onClickSkillStats = () => {
+    apz.launchScreen({
+        scr: "SkillStats"
+    });
+}
+const onClickAppreciation = () => {
+    apz.launchScreen({
+        scr: "RecognitionCenter"
+    });
+}
+const onClickDashboard = () => {
+    apz.launchScreen({
+        scr: "DashBoard"
+    });
+}
